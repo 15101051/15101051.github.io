@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="WoXinChangDan!!!">
 <meta property="og:description" content="Description：我们设 $f[i]​$ 表示 $i​$ 个点的环，每个点染 $k​$ 种颜色之一，旋转同构算一种方案的不同的染色方案数，求：  \sum_{i=1}^ni\times f[i]Solution：对于 $20\%$ 的数据：$1\leqslant n\leqslant5,1\leqslant k\leqslant5$直接爆搜即可。 对于 $20\%$ 的数据：$1\leqsl">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-13T08:01:59.679Z">
+<meta property="og:updated_time" content="2019-04-13T12:24:29.425Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="签到题 题解">
 <meta name="twitter:description" content="Description：我们设 $f[i]​$ 表示 $i​$ 个点的环，每个点染 $k​$ 种颜色之一，旋转同构算一种方案的不同的染色方案数，求：  \sum_{i=1}^ni\times f[i]Solution：对于 $20\%$ 的数据：$1\leqslant n\leqslant5,1\leqslant k\leqslant5$直接爆搜即可。 对于 $20\%$ 的数据：$1\leqsl">
@@ -307,6 +307,7 @@ f[n]=\frac1n\sum_{i=1}^nk^{\gcd(i,n)}</script><p>经过简单的推导可以得�
 =&\sum_{i=1}^n\sum_{d|i}k^d\varphi(\frac id)=\sum_{d=1}^nk^d\sum_{d|i}^n\varphi(\frac id)\\
 =&\sum_{d=1}^nk^d\sum_{i=1}^{\lfloor\frac nd\rfloor}\varphi(i)
 \end{align}</script><p>根据这个式子就可以线性筛 $\varphi$ 并预处理前缀和计算，时间复杂度 $O(n)$ 。</p>
+<p><a href="https://www.luogu.org/paste/bb2enyvl" target="_blank" rel="noopener">代码</a></p>
 <h3 id="对于-20-的数据：-1-leqslant-n-leqslant-10-9-1-leqslant-k-leqslant-10-9"><a href="#对于-20-的数据：-1-leqslant-n-leqslant-10-9-1-leqslant-k-leqslant-10-9" class="headerlink" title="对于 $20\%$ 的数据：$1\leqslant n\leqslant 10^9,1\leqslant k\leqslant 10^9$"></a>对于 $20\%$ 的数据：$1\leqslant n\leqslant 10^9,1\leqslant k\leqslant 10^9$</h3><script type="math/tex; mode=display">
 \sum_{i=1}^ni\times\frac1i\sum_{d=1}^ik^{\gcd(d,i)}=\frac 12(\sum_{i=1}^n\sum_{j=1}^nk^{\gcd(i,j)}+\sum_{i=1}^nk^i)</script><p>后面是一个等比数列求和，于是我们只要解决括号内的前半部分即可。</p>
 <script type="math/tex; mode=display">
@@ -319,8 +320,10 @@ f[n]=\frac1n\sum_{i=1}^nk^{\gcd(i,n)}</script><p>经过简单的推导可以得�
 g[n]=\sum_{d=1}^n\mu(d)\biggl\lfloor\frac n{d}\biggr\rfloor^2</script><p>那么：</p>
 <script type="math/tex; mode=display">
 \sum_{d=1}^nk^dg[\Bigl\lfloor\frac nd\Big\rfloor]</script><p>如果我们用除法分块求$g$的话，会发现我们要用到的$\mu$的前缀和的位置一定可以表示成$\Big\lfloor\frac nd\Big\rfloor$的形式，这些位置的前缀和可以用杜教筛$O(n^{\frac 23})$一次性预处理出来，那么$g[n]$可以$O(\sqrt n)$计算，外面再套一个除法分块复杂度是$O(n^{\frac 34})$的，这个复杂度的证明可以看：<a href="https://czyhe.me/blog/math/yi-xie-mei-sha-yong-de-gu-ji/yi-xie-mei-sha-yong-de-gu-ji/" target="_blank" rel="noopener">这里</a></p>
+<p><a href="https://www.luogu.org/paste/etaz3mm9" target="_blank" rel="noopener">代码</a></p>
 <h3 id="对于-20-的数据：-1-leqslant-n-leqslant-10-11-1-leqslant-k-leqslant-10-9"><a href="#对于-20-的数据：-1-leqslant-n-leqslant-10-11-1-leqslant-k-leqslant-10-9" class="headerlink" title="对于 $20\%$ 的数据：$1\leqslant n\leqslant 10^{11},1\leqslant k\leqslant 10^9$"></a>对于 $20\%$ 的数据：$1\leqslant n\leqslant 10^{11},1\leqslant k\leqslant 10^9$</h3><p>考虑 $1\leqslant n\leqslant10^6$ 那部分的做法，求 $\varphi$ 的前缀和可以杜教筛，然后求和用除法分块优化即可。</p>
 <p>时间复杂度 $O(n^{\frac 23})$ 。</p>
+<p><a href="https://www.luogu.org/paste/uh2xvykr" target="_blank" rel="noopener">代码</a></p>
 
       
     </div>
