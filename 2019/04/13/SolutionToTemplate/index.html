@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="woxinchangdan,houjibofa." />
+  <meta name="keywords" content="solution," />
 
 
 
@@ -82,13 +82,14 @@
 
 
 <meta name="description" content="Description：给出一棵以 $1​$ 号点为根的树，每个点上有一个字符，每个点所代表的字符串 $s[i]​$ 为从这个点到根的字符连起来形成的字符串，求：  \sum_{i=1}^n\sum_{j=i+1 }^n\mathrm{lcs}(i,j)\times \mathrm{lcp}(i,j)其中：$\mathrm{lcs}$ 表示两个字符串的最长公共后缀，$\mathrm{lcp}$ 表">
+<meta name="keywords" content="solution">
 <meta property="og:type" content="article">
 <meta property="og:title" content="模板题 题解">
 <meta property="og:url" content="http://yoursite.com/2019/04/13/SolutionToTemplate/index.html">
 <meta property="og:site_name" content="WoXinChangDan!!!">
 <meta property="og:description" content="Description：给出一棵以 $1​$ 号点为根的树，每个点上有一个字符，每个点所代表的字符串 $s[i]​$ 为从这个点到根的字符连起来形成的字符串，求：  \sum_{i=1}^n\sum_{j=i+1 }^n\mathrm{lcs}(i,j)\times \mathrm{lcp}(i,j)其中：$\mathrm{lcs}$ 表示两个字符串的最长公共后缀，$\mathrm{lcp}$ 表">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-13T07:58:40.633Z">
+<meta property="og:updated_time" content="2019-04-13T10:32:21.779Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="模板题 题解">
 <meta name="twitter:description" content="Description：给出一棵以 $1​$ 号点为根的树，每个点上有一个字符，每个点所代表的字符串 $s[i]​$ 为从这个点到根的字符连起来形成的字符串，求：  \sum_{i=1}^n\sum_{j=i+1 }^n\mathrm{lcs}(i,j)\times \mathrm{lcp}(i,j)其中：$\mathrm{lcs}$ 表示两个字符串的最长公共后缀，$\mathrm{lcp}$ 表">
@@ -300,11 +301,14 @@
 <h3 id="对于-25-的数据满足：-n-leqslant-300000-并且给出的树是一条链并且-1-号点是链的一个端点。"><a href="#对于-25-的数据满足：-n-leqslant-300000-并且给出的树是一条链并且-1-号点是链的一个端点。" class="headerlink" title="对于 $25\%$ 的数据满足：$n\leqslant 300000$ 并且给出的树是一条链并且 $1$ 号点是链的一个端点。"></a>对于 $25\%$ 的数据满足：$n\leqslant 300000$ 并且给出的树是一条链并且 $1$ 号点是链的一个端点。</h3><p>这个部分分就相当于是一个序列上的情况，那么不难想到我们对于这个序列反过来建后缀数组，那么我们考虑枚举每一个位置作为靠前的那个位置计算答案。</p>
 <p>先建出 $height$ 数组的笛卡尔树，因为字符是随机的因此 $height$ 数组也可以看成是随机的，那么有一个结论是笛卡尔树的期望深度是 $\log n$，那么我们从后往前枚举这个位置，刚开始笛卡尔树为空，每次把当前这个位置的下一个位置插进树里去，同时在树上维护子树大小，然后对于当前这个询问，从对应的点不停向上跳，在跳的同时统计和他相对的那棵子树的答案即可。</p>
 <p>时间复杂度期望 $O(n\log n)$。</p>
+<p><a href="https://www.luogu.org/paste/lj99cwad" target="_blank" rel="noopener">代码</a></p>
 <h3 id="对于-25-的数据满足：-n-leqslant-50000"><a href="#对于-25-的数据满足：-n-leqslant-50000" class="headerlink" title="对于 $25\%$ 的数据满足：$n\leqslant 50000$"></a>对于 $25\%$ 的数据满足：$n\leqslant 50000$</h3><p>还是考虑随机的特殊性，另有一个结论是在随机情况下 $\mathrm{lcs}$ 的长度期望是 $\log_{\Sigma}n$ ，那么我们就可以考虑使用一个复杂度与 $\mathrm{lcs}$ 长度有关的算法。</p>
 <p>既然 $\mathrm{lcp}(i,j)=dep[\mathrm{LCA}(i,j)]$ ，那么我们考虑枚举一个点并计算他作为 $\mathrm{LCA}$ 的代价，我们可以对于每个点哈希向上大约 $1\sim\log_2n$ 长度的字符串，出题人生成的数据长度大概不超过 $50$ ，然后就是要求 $len$ 相等但是 $len+1$ 不相等的点对数，这个可以开一个桶计算，计算的过程可以用树上启发式合并($dsu\text{ }on\text{ }tree$)来优化。</p>
 <p>时间复杂度 $O(n\log^2 n)$ 。</p>
+<p><a href="https://www.luogu.org/paste/cv4xsq3j" target="_blank" rel="noopener">代码</a></p>
 <h3 id="对于-30-的数据满足：-n-leqslant-300000"><a href="#对于-30-的数据满足：-n-leqslant-300000" class="headerlink" title="对于 $30\%$ 的数据满足：$n\leqslant 300000$"></a>对于 $30\%$ 的数据满足：$n\leqslant 300000$</h3><p>由于字符集太大无法使用后缀自动机，我们考虑后缀数组，首先在 $trie$ 上建立后缀数组，那么两个点间的 $lcp$ 就是他们对应位置之间 $height$ 的最小值，还是建立 $height$ 数组上的笛卡尔树，那么类似线段树合并，我们可以使用笛卡尔树合并，实现方法和线段树基本相同，我们只要在合并的时候顺便计算跨过根节点的贡献就行了。</p>
 <p>时间复杂度 $O(n\log n)$ 。</p>
+<p><a href="https://www.luogu.org/paste/h9cbs7jn" target="_blank" rel="noopener">代码</a></p>
 
       
     </div>
@@ -319,6 +323,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/solution/" rel="tag"># solution</a>
+          
+        </div>
       
 
       
