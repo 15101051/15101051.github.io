@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/15101051.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/15101051.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/15101051.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="solution," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="WoXinChangDan!!!" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="Description：给出一棵以 $1​$ 号点为根的树，每个点上有一个字符，每个点所代表的字符串 $s[i]​$ 为从这个点到根的字符连起来形成的字符串，求：  \sum_{i=1}^n\sum_{j=i+1 }^n\mathrm{lcs}(i,j)\times \mathrm{lcp}(i,j)其中：$\mathrm{lcs}$ 表示两个字符串的最长公共后缀，$\mathrm{lcp}$ 表">
+<meta name="keywords" content="solution">
+<meta property="og:type" content="article">
+<meta property="og:title" content="模板题 题解">
+<meta property="og:url" content="http://yoursite.com/2019/04/13/SolutionToTemplate/index.html">
+<meta property="og:site_name" content="WoXinChangDan!!!">
+<meta property="og:description" content="Description：给出一棵以 $1​$ 号点为根的树，每个点上有一个字符，每个点所代表的字符串 $s[i]​$ 为从这个点到根的字符连起来形成的字符串，求：  \sum_{i=1}^n\sum_{j=i+1 }^n\mathrm{lcs}(i,j)\times \mathrm{lcp}(i,j)其中：$\mathrm{lcs}$ 表示两个字符串的最长公共后缀，$\mathrm{lcp}$ 表">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-13T06:13:50.910Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="模板题 题解">
+<meta name="twitter:description" content="Description：给出一棵以 $1​$ 号点为根的树，每个点上有一个字符，每个点所代表的字符串 $s[i]​$ 为从这个点到根的字符连起来形成的字符串，求：  \sum_{i=1}^n\sum_{j=i+1 }^n\mathrm{lcs}(i,j)\times \mathrm{lcp}(i,j)其中：$\mathrm{lcs}$ 表示两个字符串的最长公共后缀，$\mathrm{lcp}$ 表">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/04/13/SolutionToTemplate/"/>
+
+
+
+
+
+  <title>模板题 题解 | WoXinChangDan!!!</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WoXinChangDan!!!</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/13/SolutionToTemplate/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="15101051">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/22447.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WoXinChangDan!!!">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">模板题 题解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-13T14:12:08+08:00">
+                2019-04-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Description："><a href="#Description：" class="headerlink" title="Description："></a>Description：</h1><p>给出一棵以 $1​$ 号点为根的树，每个点上有一个字符，每个点所代表的字符串 $s[i]​$ 为从这个点到根的字符连起来形成的字符串，求：</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^n\sum_{j=i+1 }^n\mathrm{lcs}(i,j)\times \mathrm{lcp}(i,j)</script><p>其中：$\mathrm{lcs}$ 表示两个字符串的最长公共后缀，$\mathrm{lcp}$ 表示两个字符串的最长公共前缀。</p>
+<h1 id="Solution："><a href="#Solution：" class="headerlink" title="Solution："></a>Solution：</h1><h3 id="对于-10-的数据满足：-n-leqslant-200"><a href="#对于-10-的数据满足：-n-leqslant-200" class="headerlink" title="对于 $10\%$ 的数据满足：$n\leqslant 200$"></a>对于 $10\%$ 的数据满足：$n\leqslant 200$</h3><p>直接枚举点对暴力就行了，时间复杂度 $O(n^3)$ 。</p>
+<h3 id="对于-10-的数据满足：-n-leqslant-5000"><a href="#对于-10-的数据满足：-n-leqslant-5000" class="headerlink" title="对于 $10\%$ 的数据满足：$n\leqslant 5000$"></a>对于 $10\%$ 的数据满足：$n\leqslant 5000$</h3><p>显然两个串的 $\mathrm{lcp}$ 就是 $\mathrm{lca}$ 的深度，那么我们把所有串拿出来反过来建出 $trie$ ，还是暴力枚举点对用 $ST$ 表 $O(1)$ 求 $LCA$ 即可。</p>
+<p>时间复杂度 $O(n^2)$ 。</p>
+<h3 id="对于-25-的数据满足：-n-leqslant-300000-并且给出的树是一条链并且-1-号点是链的一个端点。"><a href="#对于-25-的数据满足：-n-leqslant-300000-并且给出的树是一条链并且-1-号点是链的一个端点。" class="headerlink" title="对于 $25\%$ 的数据满足：$n\leqslant 300000$ 并且给出的树是一条链并且 $1$ 号点是链的一个端点。"></a>对于 $25\%$ 的数据满足：$n\leqslant 300000$ 并且给出的树是一条链并且 $1$ 号点是链的一个端点。</h3><p>这个部分分就相当于是一个序列上的情况，那么不难想到我们对于这个序列反过来建后缀数组，那么我们考虑枚举每一个位置作为靠前的那个位置计算答案。</p>
+<p>先建出 $height$ 数组的笛卡尔树，因为字符是随机的因此 $height$ 数组也可以看成是随机的，那么有一个结论是笛卡尔树的期望深度是 $\log n$，那么我们从后往前枚举这个位置，刚开始笛卡尔树为空，每次把当前这个位置的下一个位置插进树里去，同时在树上维护子树大小，然后对于当前这个询问，从对应的点不停向上跳，在跳的同时统计和他相对的那棵子树的答案即可。</p>
+<p>时间复杂度期望 $O(n\log n)$。</p>
+<h3 id="对于-25-的数据满足：-n-leqslant-50000"><a href="#对于-25-的数据满足：-n-leqslant-50000" class="headerlink" title="对于 $25\%$ 的数据满足：$n\leqslant 50000$"></a>对于 $25\%$ 的数据满足：$n\leqslant 50000$</h3><p>还是考虑随机的特殊性，另有一个结论是在随机情况下 $\mathrm{lcs}$ 的长度期望是 $\log_{\Sigma}n$ ，那么我们就可以考虑使用一个复杂度与 $\mathrm{lcs}$ 长度有关的算法。</p>
+<p>既然 $\mathrm{lcp}(i,j)=dep[\mathrm{LCA}(i,j)]$ ，那么我们考虑枚举一个点并计算他作为 $\mathrm{LCA}$ 的代价，我们可以对于每个点哈希向上大约 $1\sim\log_2n$ 长度的字符串，出题人生成的数据长度大概不超过 $50$ ，然后就是要求 $len$ 相等但是 $len+1$ 不相等的点对数，这个可以开一个桶计算，计算的过程可以用树上启发式合并($dsu\text{ }on\text{ }tree$)来优化。</p>
+<p>时间复杂度 $O(n\log^2 n)$ 。</p>
+<h3 id="对于-30-的数据满足：-n-leqslant-300000"><a href="#对于-30-的数据满足：-n-leqslant-300000" class="headerlink" title="对于 $30\%$ 的数据满足：$n\leqslant 300000$"></a>对于 $30\%$ 的数据满足：$n\leqslant 300000$</h3><p>由于字符集太大无法使用后缀自动机，我们考虑后缀数组，首先在 $trie$ 上建立后缀数组，那么两个点间的 $lcp$ 就是他们对应位置之间 $height$ 的最小值，还是建立 $height$ 数组上的笛卡尔树，那么类似线段树合并，我们可以使用笛卡尔树合并，实现方法和线段树基本相同，我们只要在合并的时候顺便计算跨过根节点的贡献就行了。</p>
+<p>时间复杂度 $O(n\log n)$ 。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/solution/" rel="tag"># solution</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/13/SolutionToSign/" rel="next" title="签到题 题解">
+                <i class="fa fa-chevron-left"></i> 签到题 题解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/22447.png"
+                alt="15101051" />
+            
+              <p class="site-author-name" itemprop="name">15101051</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Description："><span class="nav-number">1.</span> <span class="nav-text">Description：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Solution："><span class="nav-number">2.</span> <span class="nav-text">Solution：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#对于-10-的数据满足：-n-leqslant-200"><span class="nav-number">2.0.1.</span> <span class="nav-text">对于 $10\%$ 的数据满足：$n\leqslant 200$</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对于-10-的数据满足：-n-leqslant-5000"><span class="nav-number">2.0.2.</span> <span class="nav-text">对于 $10\%$ 的数据满足：$n\leqslant 5000$</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对于-25-的数据满足：-n-leqslant-300000-并且给出的树是一条链并且-1-号点是链的一个端点。"><span class="nav-number">2.0.3.</span> <span class="nav-text">对于 $25\%$ 的数据满足：$n\leqslant 300000$ 并且给出的树是一条链并且 $1$ 号点是链的一个端点。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对于-25-的数据满足：-n-leqslant-50000"><span class="nav-number">2.0.4.</span> <span class="nav-text">对于 $25\%$ 的数据满足：$n\leqslant 50000$</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对于-30-的数据满足：-n-leqslant-300000"><span class="nav-number">2.0.5.</span> <span class="nav-text">对于 $30\%$ 的数据满足：$n\leqslant 300000$</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">15101051</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
